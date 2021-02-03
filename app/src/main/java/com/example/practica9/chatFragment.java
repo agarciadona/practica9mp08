@@ -57,7 +57,7 @@ public class chatFragment extends Fragment {
 
         });
 
-        mDb.collection("mensajes").addSnapshotListener((value, error) -> {
+        mDb.collection("mensajes").orderBy("fecha").addSnapshotListener((value, error) -> {
             chat.clear();
             value.forEach(document -> {
                 chat.add(new Mensaje(
@@ -67,6 +67,8 @@ public class chatFragment extends Fragment {
             });
 
             chatAdapter.notifyDataSetChanged();
+            binding.chat.scrollToPosition(chat.size()-1);
+
         });
 
     }
